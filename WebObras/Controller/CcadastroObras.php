@@ -1,5 +1,7 @@
 <?php
 
+    include('.././ClassesPHP/Model/banco.php');
+
     session_start();
 
     $protocolo       = $_POST['txtProtocolo'];
@@ -16,7 +18,7 @@
     $dataPrevisao    = date('Y-m-d', strtotime(str_replace("/", "-", $_POST["dtPrevisao"])));
     $status          = $_POST['cbbStatus'];
     $dscAdicional    = $_POST['dscAdicional'];
-    $dataConclusao   = NULL;
+    $dataConclusao   = 'NULL';
     $codigoMateriais = NULL;
 
     $_SESSION['novaObra'] = array(
@@ -38,51 +40,59 @@
         'codigoMateriais' => $codigoMateriais
     );
 
-    if(!isset($_SESSION['ocorrenciaObra'])) {
+    $conexaoBanco = mysqli_connect('localhost', 'root', 'guilherme22082002guesser', 'prefguara_mainBase', '3306');
+
+    $sqlMateriais  = ' SELECT cad.*, SUM(obr.Quantidade) AS quantidadeMaterial FROM prefguara_materiaisPorObras AS obr';
+    $sqlMateriais .= ' LEFT JOIN prefguara_cadastroMateriais AS cad ON(cad.codMat = obr.Material)';
+    $sqlMateriais .= ' WHERE 1';
+    $sqlMateriais .= ' AND obr.Obra = ' . $protocolo;
+    $sqlMateriais .= ' GROUP BY Material';
+
+    $selectMateriais = mysqli_query($conexaoBanco, $sqlMateriais);
+
+    $materiais = '';
+
+    while($resultadoMateriais = mysqli_fetch_assoc($selectMateriais))
+    {
+        $materiais = $materiais . '<br>' . $resultadoMateriais['NomeMat'] . ' - ' . $resultadoMateriais['quantidadeMaterial'] . ' ' .$resultadoMateriais['UnidadeMedidaMat'];
+    }
+
+    $url = 'http://localhost/Prefeitura/WebObras/View/RelatorioNovaObra.php?protocolo='.$protocolo.'&url=http://localhost/Prefeitura/WebObras/View/nova-obra.php?nome='.$nomeMorador.'&email='.$emailMorador.'&registro='.$dataRegistro;
+    $url = $url . '&protocolo='.$protocolo.'&bairro='.$bairro.'&rua='.$rua.'&fiscal='.$fiscal.'&previsao='.$dataPrevisao.'&status='.$status;
+    $url = $url . '&problema='.$problema . '&materiais='.$materiais;
+
+    $acao = false;
+
+    if (!isset($_SESSION['ocorrenciaObra'])) {
 
         $status = '1';
 
-        $sql = 'INSERT INTO prefguara_obras';
-        $sql .= ' (codProtocolo, Titulo, Nome, dtRegistro, Rua, Numero, Telefone, Email, dscProblema, Fiscal, dtPrevisao, Status, dscAdicional, dtConclusao, CodigoMateriais, Bairro)';
-        $sql .= " VALUES ('". $protocolo ."', '" . $tituloObra . "','" . $nomeMorador . "', '" . $dataRegistro . "', '" . $rua . "', '" . $numero . "', '" . $telefoneMorador . "', '" . $emailMorador . "', '" . $problema . "', '" . $fiscal . "', '" . $dataPrevisao . "', '" . $status . "', '" . $dscAdicional . "', '" . $dataConclusao . "', '" . $codigoMateriais . "', '" . $bairro . "');";
+        $sql  = ' INSERT INTO prefguara_obras';
+        $sql .= ' (codProtocolo, Titulo, Nome, dtRegistro, Rua, Numero, Telefone, Email, dscProblema, codFiscal, dtPrevisao, Status, dscAdicional, dtConclusao, CodigoMateriais, Bairro, Url)';
+        $sql .= " VALUES ('" . $protocolo . "', '" . $tituloObra . "','" . $nomeMorador . "', '" . $dataRegistro . "', '" . $rua . "', '" . $numero . "', '" . $telefoneMorador . "', '" . $emailMorador . "', '" . $problema . "', '" . $fiscal . "', '" . $dataPrevisao . "', '" . $status . "', '" . $dscAdicional . "', " . $dataConclusao . ", '" . $codigoMateriais . "', '" . $bairro . "', '" . $url . "');";
 
-        $acao = 'INCLUIDA';
+        $acao = true;
 
-    }else{
+    } else {
 
         unset($_SESSION['ocorrenciaObra']);
 
-        $sql = 'UPDATE prefguara_obras';
-        $sql.= ' SET Titulo = "'.$tituloObra.'", Nome = "'.$nomeMorador.'", Rua = "'.$rua.'", Numero = '.$numero.', Telefone = '.$telefoneMorador.', Email = "'.$emailMorador.'", dscProblema = "'.$problema.'", Fiscal = "'.$fiscal.'", dtPrevisao = "'.$dataPrevisao.'", Status = "'.$status.'", dscAdicional = "'.$dscAdicional.'", Bairro = "'.$bairro.'"';
-        $sql.= ' WHERE codProtocolo = '.$protocolo;
-
-        $acao = 'ALTERADA';
+        $sql  = ' UPDATE prefguara_obras';
+        $sql .= ' SET Titulo = "' . $tituloObra . '", Nome = "' . $nomeMorador . '", Rua = "' . $rua . '", Numero = ' . $numero . ', Telefone = ' . $telefoneMorador . ', Email = "' . $emailMorador . '", dscProblema = "' . $problema . '", codFiscal = "' . $fiscal . '", dtPrevisao = "' . $dataPrevisao . '", Status = "' . $status . '", dscAdicional = "' . $dscAdicional . '", Bairro = "' . $bairro . '", Url = "' . $url . '"';
+        $sql .= ' WHERE codProtocolo = ' . $protocolo;
     }
-
-    $conexaoBanco = mysqli_connect('localhost', 'root', 'guilherme22082002guesser', 'prefguara_mainBase', '3306');
 
     $insercaoBanco = mysqli_query($conexaoBanco, $sql);
 
-    mysqli_close($conexaoBanco);
+    if ($insercaoBanco == true) {
 
-    if($insercaoBanco){
         $_SESSION['erroRequisicao'] = false;
 
-//        if($acao == 'INCLUIDA')
-//        {
-//
-//            $url = '/Prefeitura/WebObras/View/RelatorioNovaObra.php?nome='.$nomeMorador.'&email='.$emailMorador.'&registro='.$dataRegistro;
-//            $url = $url . '&protocolo='.$protocolo.'&bairro='.$bairro.'&rua='.$rua.'&fiscal='.$fiscal.'&previsao='.$dataPrevisao.'&status='.$status;
-//            $url = $url . '&problema='.$problema;
-//
-//            print $url;
-//            exit;
-//
-//            header('Location: ' . $url);
-//        }
-
-    }else{
+    } else {
         $_SESSION['erroRequisicao'] = true;
     }
 
+    mysqli_close($conexaoBanco);
+
     header('Location: /Prefeitura/WebObras/View/cadastroObras.php?protocolo='.$protocolo);
+

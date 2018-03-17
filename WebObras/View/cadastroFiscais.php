@@ -184,7 +184,6 @@
                 if(data){
 
                     $('#fiscais').html(data);
-
                     $('#txtNome').val('');
                     $('#txtTelefone').val('');
                     $('#txtArea').val('');

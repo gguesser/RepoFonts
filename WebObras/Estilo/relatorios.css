@@ -1,5 +1,24 @@
-#titulo{
-    padding-top: 3%;
+h1{
+    text-align: center;
+    font-size: 24px;
+}
+
+.img{
+    margin-bottom: 30%;
+    margin-top: 5%;
+}
+
+.titulo{
+    margin-top: 7%;
+    margin-bottom: 20%;
+}
+
+img{
+    position: relative;
+}
+
+fieldset{
+    margin: 4%;
 }
 
 .imgReport{
@@ -11,7 +30,7 @@
 
 .cabecalhoReport{
     background-color: lightgoldenrodyellow;
-    height: 20%;
+    height: 15%;
     border-width: 2px;
     border-style: solid;
     border-color: black;
@@ -19,7 +38,7 @@
 
 .corpoReport{
     background-color: white;
-    height: 115%;
+    height: auto;
     border-width: 2px;
     border-style: solid;
     border-color: black;
@@ -27,7 +46,7 @@
 
 .rodapeReport{
     background-color: lightgoldenrodyellow;
-    height: 10%;
+    height: 5%;
     border-width: 2px;
     border-style: solid;
     border-color: black;
@@ -40,8 +59,4 @@
     border-bottom-width: 2px;
     border-style: solid;
     border-color: black;
-}
-
-fieldset{
-    margin: 4%;
 }

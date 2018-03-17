@@ -1,5 +1,6 @@
 <?php
 
+    include('.././ClassesPHP/helper.php');
     include('.././ClassesPHP/Header.php');
     include('.././ClassesPHP/Material.php');
 
@@ -24,15 +25,16 @@
 
             if(isset($_SESSION['erroRequisicao'])) {
                 if ($_SESSION['erroRequisicao'] == true) {
-         ?>
+                    ?>
                     <script>
                         swal("Erro", "Houve algum problema em incluir/alterar esta obra.", "error");
                     </script>
-         <?
+                    <?php
 
-                }else if ($_SESSION['erroRequisicao'] == false){
-
-         ?>
+                }
+                else
+                {
+                    ?>
                     <script>
                         swal("Bom trabalho", "Obra alterada/incluída com sucesso", "success");
                     </script>
@@ -42,6 +44,7 @@
             unset($_SESSION['erroRequisicao']);
 
             if(array_key_exists('protocolo',$_GET)){
+
                 $sql = 'SELECT * FROM prefguara_obras WHERE codProtocolo = '.$_GET['protocolo'];
 
                 $conexaoBanco = mysqli_connect('localhost', 'root', 'guilherme22082002guesser', 'prefguara_mainBase', '3306');
@@ -56,6 +59,7 @@
 
                 mysqli_close($conexaoBanco);
             }
+
         ?>
         <div class="container-fluid display-table">
             <div class="row display-table-row">
@@ -119,10 +123,10 @@
                         <form action="../Controller/CcadastroObras.php" method="POST" id="obraForm">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <table class=''"larguraTable">
+                                    <table class="larguraTable">
                                         <tr>
                                             <td>
-                                                Informações
+                                                <b>INFORMACOES</b>
                                             </td>
                                             <td>
                                                 <?php
@@ -138,7 +142,7 @@
                                     <div class="rowEspacamento">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="">Protocolo</label>
+                                                <label for="txtProtocolo">Protocolo</label>
                                                 <input type="text" class="componente_linha_1" name="txtProtocolo" id="txtProtocolo" value="<?php print isset($resultadoSelecao) ? $resultadoSelecao['codProtocolo'] : '';?>">
                                             </div>
                                             <div class="col-md-8">
@@ -198,7 +202,7 @@
                             </div>
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Morador
+                                    <b>MORADOR</b>
                                 </div>
                                 <div class="panel-body">
                                      <div class="rowEspacamento">
@@ -224,7 +228,7 @@
                              </div>
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Adicional
+                                    <b>ADICIONAL</b>
                                 </div>
                                 <div class="panel-body">
                                     <div class="rowEspacamento">
@@ -267,13 +271,13 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <?php
-                                                    if(isset($resultadoSelecao)) {
-                                                        $aData = explode('-', $resultadoSelecao['dtPrevisao']);
-                                                        $dataFormatada = $aData[2] . '/' . $aData[1] . '/' . $aData[0];
-                                                    }
+                                                    $aData = explode('-', $resultadoSelecao['dtPrevisao']);
+                                                $dataFormatada = $aData[2] . '/' . $aData[1] . '/' . $aData[0];
                                                 ?>
-                                                <label for="">Data Previsão</label>
-                                                <input type="text" name="dtPrevisao" id="dtPrevisao" class="componente_linha_3" value="<?php $resultadoSelecao['dtPrevisao'] ? $dataFormatada : NULL; ?>">
+
+                                                <label for="dtPrevisao">Data Previsão</label>
+                                                <input type="text" name="dtPrevisao" id="dtPrevisao" class="componente_linha_3" value="<?php print $resultadoSelecao['dtPrevisao'] ? $dataFormatada : NULL; ?>">
+
                                             </div>
                                         </div>
                                         <?php
@@ -287,7 +291,7 @@
                                                                 print '<table class="larguraTable">';
                                                                     print '<tr>';
                                                                         print '<td>';
-                                                                            print 'Materiais Utilizados';
+                                                                            print '<b>MATERIAIS UTILIZADOS</b>';
                                                                         print '</td>';
                                                                         print '<td>';
                                                                             print '<input type = "button" value="Adicionar Material" onclick = "acaoModais(\'ativa\', \'.adicionaMaterial\')" class="btn btn-primary posicionamentoDireita" data-toggle="modal" data-target=".adicionaMaterial" >';
@@ -297,7 +301,6 @@
                                                             print '</div>';
                                                             print '<div class="table-responsive">';
                                                                 print '<table class="table tableMateriais">';
-
 
                                                                         $instanciaCarregaMaterial = Material::carregaMateriais($resultadoSelecao['codProtocolo']);
 
@@ -313,7 +316,7 @@
                                 </div>
                             </div>
                             <input type="submit" class="btn btn-success" value="Salvar">
-                            <input type="button" class="btn btn-info" onclick="" value="PDF">
+                            <input type="button" class="btn btn-info" onclick="downloadPDF('<?php print $resultadoSelecao['Url'];?>')" value="PDF">
                         </form>
                     </div>
                 </div>
@@ -365,8 +368,8 @@
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <?php
-                                $aData = explode('-', $resultadoSelecao['dtRegistro']);
-                                $dataFormatada = $aData[2] . '/' . $aData[1] . '/' .  $aData[0];
+                                    $aData = explode('-', $resultadoSelecao['dtRegistro']);
+                                    $dataFormatada = $aData[2] . '/' . $aData[1] . '/' .  $aData[0];
                                 ?>
                                 <label for="">Criação da obra</label>
                                 <input type="text" class="componente_linha_3" value="<?php print $dataFormatada?>" readonly="readonly">
@@ -578,6 +581,13 @@
                 }
             }
         });
+    }
+
+    function downloadPDF(prUrl)
+    {
+
+        window.open(prUrl);
+
     }
 
 </script>
