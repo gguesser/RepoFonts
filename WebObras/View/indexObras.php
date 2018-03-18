@@ -78,12 +78,20 @@
                     <div class="row quadro-principal">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <b>Em processo</b>
-                                <input type="text" value="pesquisar" class="pull">
+                                <table class="larguraTable">
+                                    <tr>
+                                        <td>
+                                            <b>EM PROCESSO</b>
+                                        </td>
+                                        <td>
+                                            <input type="text" value="pesquisar" class="pull-right" readonly>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <?php
 
-                            $resultadoSelecao = Obra::selecionaObras(3);
+                            $resultadoSelecao = Obra::selecionaObras(2);
 
                                 print '<div class="table-responsive">';
                                     print '<table class="table">';
@@ -103,28 +111,28 @@
                                         print '<tr>';
                                             print '<td>';
                                                 $metodo = 'cadastroObras.php?protocolo='.$obrasSelecionadas['codProtocolo'];
-                                                print '<a href="'.$metodo.'">'.$obrasSelecionadas['codProtocolo'].'</a>';
+                                                print '<button class="btn btn-primary componente_linha_3" onClick=location.href="'.$metodo.'">'.$obrasSelecionadas['codProtocolo'].'</button>';
                                             print '</td>';
                                             print '<td>';
-                                                print utf8_encode($obrasSelecionadas['Titulo']);
+                                                print $obrasSelecionadas['Titulo'];
                                             print '</td>';
                                             print '<td>';
-                                                print utf8_encode($obrasSelecionadas['Bairro']);
+                                                print $obrasSelecionadas['Bairro'];
                                             print '</td>';
                                             print '<td>';
-                                                print utf8_encode($obrasSelecionadas['Rua']);
+                                                print $obrasSelecionadas['Rua'];
                                             print '</td>';
                                             print '<td>';
-                                                print utf8_encode($obrasSelecionadas['Nome']);
+                                                print $obrasSelecionadas['Nome'];
                                             print '</td>';
                                             print '<td>';
-                                                print utf8_encode($obrasSelecionadas['dtRegistro']);
+                                                print date('d/m/Y', strtotime($obrasSelecionadas['dtRegistro']));
                                             print '</td>';
                                             print '<td>';
-                                                print utf8_encode($obrasSelecionadas['Fiscal']);
+                                                print $obrasSelecionadas['Fiscal'];
                                             print '</td>';
                                             print '<td>';
-                                                print utf8_encode($obrasSelecionadas['dtPrevisao']);
+                                                print date('d/m/Y', strtotime($obrasSelecionadas['dtPrevisao']));
                                             print '</td>';
                                         print '</tr>';
                                     }
@@ -139,8 +147,16 @@
                             <div class="col-md-6">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <b>Abertas</b>
-                                        <input type="text" value="pesquisar" class="pull">
+                                        <table class="larguraTable">
+                                            <tr>
+                                                <td>
+                                                    <b>ABERTAS</b>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="pesquisar" class="pull-right" readonly>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
                                     <?php
 
@@ -161,19 +177,19 @@
                                                 print '<tr>';
                                                     print '<td>';
                                                         $metodo = 'cadastroObras.php?protocolo='.$obrasSelecionadas['codProtocolo'];
-                                                        print '<a href="'.$metodo.'">'.$obrasSelecionadas['codProtocolo'].'</a>';
+                                                        print '<button class="btn btn-danger componente_linha_3" onClick=location.href="'.$metodo.'">'.$obrasSelecionadas['codProtocolo'].'</button>';
                                                     print '</td>';
                                                     print '<td>';
-                                                        print utf8_encode($obrasSelecionadas['Titulo']);
+                                                        print $obrasSelecionadas['Titulo'];
                                                     print '</td>';
                                                     print '<td>';
-                                                        print utf8_encode($obrasSelecionadas['Bairro']);
+                                                        print $obrasSelecionadas['Bairro'];
                                                     print '</td>';
                                                     print '<td>';
-                                                        print utf8_encode($obrasSelecionadas['dtRegistro']);
+                                                        print date('d/m/Y', strtotime($obrasSelecionadas['dtRegistro']));
                                                     print '</td>';
                                                     print '<td>';
-                                                        print utf8_encode($obrasSelecionadas['Fiscal']);
+                                                        print $obrasSelecionadas['Fiscal'];
                                                     print '</td>';
                                                 print '</tr>';
                                             }
@@ -186,12 +202,20 @@
                             <div class="col-md-6">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <b>Concluídas</b>
-                                        <input type="text" value="pesquisar" class="pull">
+                                        <table class="larguraTable">
+                                            <tr>
+                                                <td>
+                                                    <b>CONCLUÍDAS</b>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="pesquisar" class="pull-right" readonly>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
                                     <?php
 
-                                        $resultadoSelecao = Obra::selecionaObras(2);
+                                        $resultadoSelecao = Obra::selecionaObras(3);
 
                                         print '<div class="table-responsive">';
                                             print '<table class="table">';
@@ -208,19 +232,19 @@
                                                 print '<tr>';
                                                     print '<td>';
                                                         $metodo = 'cadastroObras.php?protocolo='.$obrasSelecionadas['codProtocolo'];
-                                                        print '<a href="'.$metodo.'">'.$obrasSelecionadas['codProtocolo'].'</a>';
+                                                        print '<button class="btn btn-success componente_linha_3" onClick=location.href="'.$metodo.'">'.$obrasSelecionadas['codProtocolo'].'</button>';
                                                     print '</td>';
                                                     print '<td>';
-                                                        print utf8_encode($obrasSelecionadas['Titulo']);
+                                                        print $obrasSelecionadas['Titulo'];
                                                     print '</td>';
                                                     print '<td>';
-                                                        print utf8_encode($obrasSelecionadas['Bairro']);
+                                                        print $obrasSelecionadas['Bairro'];
                                                     print '</td>';
                                                     print '<td>';
-                                                        print utf8_encode($obrasSelecionadas['dtConclusao']);
+                                                        print date('d/m/Y', strtotime($obrasSelecionadas['dtConclusao']));
                                                     print '</td>';
                                                     print '<td>';
-                                                        print utf8_encode($obrasSelecionadas['Fiscal']);
+                                                        print $obrasSelecionadas['Fiscal'];
                                                     print '</td>';
                                                 print '</tr>';
                                             }

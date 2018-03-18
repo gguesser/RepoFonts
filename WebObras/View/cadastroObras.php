@@ -214,8 +214,8 @@
                                              <div class="col-md-4">
                                                  <label for="">Telefone</label>
                                                  <div class="telefone" style="width: 100%">
-                                                     <input type="text" name="txtTelefoneDDD" id="txtTelefoneDDD" style="width: 15%" value="<?php print isset($resultadoSelecao) ? substr($resultadoSelecao['Telefone'], 1, 2) : NULL;?>">
-                                                     <input type="text" name="txtTelefone" id="txtTelefone" style="width: 83%" value="<?php print isset($resultadoSelecao) ? substr($resultadoSelecao['Telefone'], 3, 10) : NULL;?>">
+                                                     <input type="text" name="txtTelefoneDDD" id="txtTelefoneDDD" style="width: 15%" value="<?php print isset($resultadoSelecao) ? substr($resultadoSelecao['Telefone'], 0, 2) : NULL;?>">
+                                                     <input type="text" name="txtTelefone" id="txtTelefone" style="width: 83%" value="<?php print isset($resultadoSelecao) ? substr($resultadoSelecao['Telefone'], 2, 10) : NULL;?>">
                                                  </div>
                                              </div>
                                              <div class="col-md-4">
@@ -345,10 +345,10 @@
                         <div class="row">
                             <div class="col-xs-12 col-md-6">
                                 <label for="">Status</label>
-                                <select name="cbbStatus" class="form-contro componente_linha_3">
+                                <select name="cbbStatus" id="cbbStatus" class="form-contro componente_linha_3">
                                     <?php
 
-                                        $tipoStatus = array('Em Processo', 'Aberta', 'Concluída');
+                                        $tipoStatus = array('Aberta', 'Concluida', 'Em processo');
 
                                         foreach($tipoStatus as $status){
                                             if(isset($resultadoSelecao)){
@@ -387,7 +387,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success">Salvar</button>
+                        <button type="button" class="btn btn-success" onclick="salvaStatusObra()" data-dismiss="modal" aria-label="Close">Salvar</button>
                     </div>
                 </div>
             </div>
@@ -581,6 +581,28 @@
                 }
             }
         });
+    }
+
+    function salvaStatusObra()
+    {
+
+        var obra = $('#txtProtocolo').val();
+        var status = $('#cbbStatus').val();
+
+        $.ajax({
+            url: '.././Controller/salvaStatusObra.php',
+            type: 'GET',
+            dataType: "html",
+            data: 'protocolo=' + obra + '&status=' + status,
+            success: function(data) {
+                if(data){
+                    swal("Bom trabalho!", "A obra " + obra + " agora está '" + status + "'!", "success");
+                }else{
+                    swal("Erro!", "Erro ao alterar o status da obra!.","error");
+                }
+            }
+        });
+
     }
 
     function downloadPDF(prUrl)

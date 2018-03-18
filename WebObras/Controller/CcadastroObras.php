@@ -11,7 +11,7 @@
     $rua             = $_POST['txtRua'];
     $numero          = $_POST['txtNumero'];
     $bairro          = $_POST['cbbBairro'];
-    $telefoneMorador = $_POST['txtTelefoneDDD'] . '' . $_POST['txtTelefone'];
+    $telefoneMorador = $_POST['txtTelefoneDDD'] . $_POST['txtTelefone'];
     $emailMorador    = $_POST['txtEmail'];
     $problema        = $_POST['dscProblema'];
     $fiscal          = $_POST['cbbFiscal'];
@@ -78,8 +78,9 @@
         unset($_SESSION['ocorrenciaObra']);
 
         $sql  = ' UPDATE prefguara_obras';
-        $sql .= ' SET Titulo = "' . $tituloObra . '", Nome = "' . $nomeMorador . '", Rua = "' . $rua . '", Numero = ' . $numero . ', Telefone = ' . $telefoneMorador . ', Email = "' . $emailMorador . '", dscProblema = "' . $problema . '", codFiscal = "' . $fiscal . '", dtPrevisao = "' . $dataPrevisao . '", Status = "' . $status . '", dscAdicional = "' . $dscAdicional . '", Bairro = "' . $bairro . '", Url = "' . $url . '"';
+        $sql .= ' SET Titulo = "' . $tituloObra . '", Nome = "' . $nomeMorador . '", Rua = "' . $rua . '", Numero = ' . $numero . ', Telefone = "' . $telefoneMorador . '", Email = "' . $emailMorador . '", dscProblema = "' . $problema . '", codFiscal = "' . $fiscal . '", dtPrevisao = "' . $dataPrevisao . '", Status = "' . $status . '", dscAdicional = "' . $dscAdicional . '", Bairro = "' . $bairro . '", Url = "' . $url . '"';
         $sql .= ' WHERE codProtocolo = ' . $protocolo;
+
     }
 
     $insercaoBanco = mysqli_query($conexaoBanco, $sql);

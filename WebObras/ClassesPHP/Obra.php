@@ -9,7 +9,11 @@ class Obra
         $conexaoBanco = mysqli_connect('localhost', 'root', 'guilherme22082002guesser', 'prefguara_mainBase', '3306');
 
         if($conexaoBanco){
-            $sql= 'SELECT * FROM prefguara_obras WHERE status = ' . $prStatusObra;
+
+            $sql  = ' SELECT obr.*, fisc.Nome AS Fiscal FROM prefguara_obras AS obr';
+            $sql .= ' LEFT JOIN  prefguara_Fiscais AS fisc ON(fisc.codFiscal = obr.codFiscal)';
+            $sql .= ' WHERE 1';
+            $sql .= ' AND status = ' . $prStatusObra;
 
             $selecionaObras = mysqli_query($conexaoBanco, $sql);
 
