@@ -10,6 +10,111 @@
 
         Header::headerPrincipal('Estatísticas');
 
+        $conexao = mysqli_connect('localhost', 'root', 'guilherme22082002guesser', 'prefguara_mainBase', '3306');
+
+        /**Quadro de comparação*/
+
+        $sql_total_obras = 'SELECT COUNT(*) AS total_obras FROM prefguara_obras';
+
+        $select_total_obras = mysqli_query($conexao, $sql_total_obras);
+
+        $total_obras = mysqli_fetch_assoc($select_total_obras);
+
+        $total_obras = $total_obras['total_obras'];
+
+
+        //Abertas
+
+        $sql_aberta = 'SELECT COUNT(*) as total_aberta FROM prefguara_obras WHERE Status = 1';
+
+        $selecao_aberta = mysqli_query($conexao, $sql_aberta);
+
+        $total_aberta = mysqli_fetch_assoc($selecao_aberta);
+
+        $total_aberta = $total_aberta['total_aberta'];
+
+            //Dentro Prazo
+
+            $sql_aberta_dentroprazo = 'SELECT COUNT(*) AS total_aberta_dentroprazo FROM prefguara_obras WHERE Status = 1 AND dtPrevisao > "' . date('Y-m-d' . '"');
+
+            $select_aberta_dentroprazo = mysqli_query($conexao, $sql_aberta_dentroprazo);
+
+            $total_aberta_dentroprazo = mysqli_fetch_assoc($select_aberta_dentroprazo);
+
+            $total_aberta_dentroprazo = $total_aberta_dentroprazo['total_aberta_dentroprazo'];
+
+            //Fora Prazo
+
+            $sql_aberta_foraprazo = 'SELECT COUNT(*) AS total_aberta_foraprazo FROM prefguara_obras WHERE Status = 1 AND dtPrevisao < "' . date('Y-m-d' . '"');
+
+            $select_aberta_foraprazo = mysqli_query($conexao, $sql_aberta_foraprazo);
+
+            $total_aberta_foraprazo = mysqli_fetch_assoc($select_aberta_foraprazo);
+
+            $total_aberta_foraprazo = $total_aberta_foraprazo['total_aberta_foraprazo'];
+
+        //Em processo
+
+        $sql_emprocesso = 'SELECT COUNT(*) AS total_emprocesso FROM prefguara_obras WHERE Status = 2';
+
+        $select_emprocesso = mysqli_query($conexao, $sql_emprocesso);
+
+        $total_emprocesso = mysqli_fetch_assoc($select_emprocesso);
+
+        $total_emprocesso = $total_emprocesso['total_emprocesso'];
+
+            //Dentro Prazo
+
+            $sql_emprocesso_dentroprazo = 'SELECT COUNT(*) AS total_emprocesso_dentroprazo FROM prefguara_obras WHERE Status = 2 AND dtPrevisao > "' . date('Y-m-d' . '"');
+
+            $select_emprocesso_dentroprazo = mysqli_query($conexao, $sql_emprocesso_dentroprazo);
+
+            $total_emprocesso_dentroprazo = mysqli_fetch_assoc($select_emprocesso_dentroprazo);
+
+            $total_emprocesso_dentroprazo = $total_emprocesso_dentroprazo['total_emprocesso_dentroprazo'];
+
+            //Fora Prazo
+
+            $sql_emprocesso_foraprazo = 'SELECT COUNT(*) AS total_emprocesso_foraprazo FROM prefguara_obras WHERE Status = 2 AND dtPrevisao < "' . date('Y-m-d' . '"');
+
+            $select_emprocesso_foraprazo = mysqli_query($conexao, $sql_emprocesso_foraprazo);
+
+            $total_emprocesso_foraprazo = mysqli_fetch_assoc($select_emprocesso_foraprazo);
+
+            $total_emprocesso_foraprazo = $total_emprocesso_foraprazo['total_emprocesso_foraprazo'];
+
+
+        //Buscas a quantidade de obras Finalizadas
+
+        $sql_finalizada = 'SELECT COUNT(*) AS total_finalizada FROM prefguara_obras WHERE Status = 3';
+
+        $selecao_finalizada = mysqli_query($conexao, $sql_finalizada);
+
+        $total_finalizada = mysqli_fetch_assoc($selecao_finalizada);
+
+        $total_finalizada = $total_finalizada['total_finalizada'];
+
+            //Dentro Prazo
+
+            $sql_finalizada_dentroprazo = 'SELECT COUNT(*) AS total_finalizada_dentroprazo FROM prefguara_obras WHERE Status = 3 AND dtPrevisao > "' . date('Y-m-d' . '"');
+
+            $select_finalizada_dentroprazo = mysqli_query($conexao, $sql_finalizada_dentroprazo);
+
+            $total_finalizada_dentroprazo = mysqli_fetch_assoc($select_finalizada_dentroprazo);
+
+            $total_finalizada_dentroprazo = $total_finalizada_dentroprazo['total_finalizada_dentroprazo'];
+
+            //Fora Prazo
+
+            $sql_finalizada_foraprazo = 'SELECT COUNT(*) AS total_finalizada_foraprazo FROM prefguara_obras WHERE Status = 3 AND dtPrevisao < "' . date('Y-m-d' . '"');
+
+            $select_finalizada_foraprazo = mysqli_query($conexao, $sql_finalizada_foraprazo);
+
+            $total_finalizada_foraprazo = mysqli_fetch_assoc($select_finalizada_foraprazo);
+
+            $total_finalizada_foraprazo = $total_finalizada_foraprazo['total_finalizada_foraprazo'];
+
+
     ?>
 
     <body class="home">
@@ -102,21 +207,17 @@
 
     $(function () {
 
-        $.ajax({
-            url: '.././Controller/Cestatisticas.php',
-            type: 'GET',
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function(json) {
+        var total_aberta     = parseFloat('<?php print $total_aberta; ?>');
+        var total_aberta_dentroprazo = parseFloat('<?php print $total_aberta_dentroprazo; ?>');
+        var total_aberta_foraprazo = parseFloat('<?php print $total_aberta_foraprazo; ?>');
 
-                console.log(json);
+        var total_emprocesso = parseFloat('<?php print $total_emprocesso; ?>');
+        var total_emprocesso_dentroprazo = parseFloat('<?php print $total_emprocesso_dentroprazo; ?>');
+        var total_emprocesso_foraprazo = parseFloat('<?php print $total_emprocesso_foraprazo; ?>');
 
-                while(json){
-                    console.log(json);
-                }
-
-            }
-        });
+        var total_finalizada = parseFloat('<?php print $total_finalizada; ?>');
+        var total_finalizada_dentroprazo = parseFloat('<?php print $total_finalizada_dentroprazo; ?>');
+        var total_finalizada_foraprazo = parseFloat('<?php print $total_finalizada_foraprazo; ?>');
 
         var myChart = Highcharts.chart('container', {
             chart: {
@@ -125,6 +226,7 @@
             title: {
                 text: 'Obras Geral'
             },
+
             xAxis: {
                 categories: ['Abertas', 'Em processo', 'Finalizadas']
             },
@@ -133,14 +235,23 @@
                     text: ' ---'
                 }
             },
-            series: [{
-                name: 'Dentro do prazo',
-                data: [1, 6, 4]
-            }, {
-                name: 'Fora do prazo',
-                data: [5, 7, 3]
-            }]
+
+            series: [
+                {
+                    name: 'Total',
+                    data: [total_aberta, total_emprocesso, total_finalizada]
+                },{
+                    name: 'Dentro do prazo',
+                    data: [total_aberta_dentroprazo, total_emprocesso_dentroprazo, total_finalizada_dentroprazo]
+                }, {
+                    name: 'Fora do prazo',
+                    data: [total_aberta_foraprazo, total_emprocesso_foraprazo, total_finalizada_foraprazo]
+                }]
         });
+
+
+
+
 
         var pieChart = Highcharts.chart('pieChart', {
             chart: {

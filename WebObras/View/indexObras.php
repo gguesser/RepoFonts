@@ -91,7 +91,7 @@
                             </div>
                             <?php
 
-                            $resultadoSelecao = Obra::selecionaObras(2);
+                                $resultadoSelecao = Obra::selecionaObras(2);
 
                                 print '<div class="table-responsive">';
                                     print '<table class="table">';

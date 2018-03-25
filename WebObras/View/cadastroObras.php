@@ -126,7 +126,7 @@
                                     <table class="larguraTable">
                                         <tr>
                                             <td>
-                                                <b>INFORMACOES</b>
+                                                <b>INFORMAÇÕES</b>
                                             </td>
                                             <td>
                                                 <?php
@@ -316,7 +316,7 @@
                                 </div>
                             </div>
                             <input type="submit" class="btn btn-success" value="Salvar">
-                            <input type="button" class="btn btn-info" onclick="downloadPDF('<?php print $resultadoSelecao['Url'];?>')" value="PDF">
+                            <input type="button" class="btn btn-info" onclick="downloadPDF('<?php print $resultadoSelecao['Url'];?>')" value="Relatório">
                         </form>
                     </div>
                 </div>

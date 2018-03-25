@@ -57,7 +57,7 @@
         $materiais = $materiais . '<br>' . $resultadoMateriais['NomeMat'] . ' - ' . $resultadoMateriais['quantidadeMaterial'] . ' ' .$resultadoMateriais['UnidadeMedidaMat'];
     }
 
-    $url = 'http://localhost/Prefeitura/WebObras/View/RelatorioNovaObra.php?protocolo='.$protocolo.'&url=http://localhost/Prefeitura/WebObras/View/nova-obra.php?nome='.$nomeMorador.'&email='.$emailMorador.'&registro='.$dataRegistro;
+    $url = 'RelatorioNovaObra.php?protocolo='.$protocolo.'&nome='.$nomeMorador.'&email='.$emailMorador.'&registro='.$dataRegistro;
     $url = $url . '&protocolo='.$protocolo.'&bairro='.$bairro.'&rua='.$rua.'&fiscal='.$fiscal.'&previsao='.$dataPrevisao.'&status='.$status;
     $url = $url . '&problema='.$problema . '&materiais='.$materiais;
 
