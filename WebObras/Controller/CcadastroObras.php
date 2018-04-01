@@ -42,25 +42,7 @@
 
     $conexaoBanco = mysqli_connect('localhost', 'root', 'guilherme22082002guesser', 'prefguara_mainBase', '3306');
 
-    $sqlMateriais  = ' SELECT cad.*, SUM(obr.Quantidade) AS quantidadeMaterial FROM prefguara_materiaisPorObras AS obr';
-    $sqlMateriais .= ' LEFT JOIN prefguara_cadastroMateriais AS cad ON(cad.codMat = obr.Material)';
-    $sqlMateriais .= ' WHERE 1';
-    $sqlMateriais .= ' AND obr.Obra = ' . $protocolo;
-    $sqlMateriais .= ' GROUP BY Material';
-
-    $selectMateriais = mysqli_query($conexaoBanco, $sqlMateriais);
-
-    $materiais = '';
-
-    while($resultadoMateriais = mysqli_fetch_assoc($selectMateriais))
-    {
-        $materiais = $materiais . '<br>' . $resultadoMateriais['NomeMat'] . ' - ' . $resultadoMateriais['quantidadeMaterial'] . ' ' .$resultadoMateriais['UnidadeMedidaMat'];
-    }
-
-    $url = 'RelatorioNovaObra.php?protocolo='.$protocolo.'&nome='.$nomeMorador.'&email='.$emailMorador.'&registro='.$dataRegistro;
-    $url = $url . '&protocolo='.$protocolo.'&bairro='.$bairro.'&rua='.$rua.'&fiscal='.$fiscal.'&previsao='.$dataPrevisao.'&status='.$status;
-    $url = $url . '&problema='.$problema . '&materiais='.$materiais;
-
+    $url = 'RelatorioNovaObra.php?protocolo='.$protocolo;
     $acao = false;
 
     if (!isset($_SESSION['ocorrenciaObra'])) {
@@ -85,15 +67,15 @@
 
     $insercaoBanco = mysqli_query($conexaoBanco, $sql);
 
-    if ($insercaoBanco == true) {
+    if (!$insercaoBanco) {
 
-        $_SESSION['erroRequisicao'] = false;
+        $_SESSION['erroRequisicao'] = true;
 
     } else {
-        $_SESSION['erroRequisicao'] = true;
+        $_SESSION['erroRequisicao'] = false;
     }
 
     mysqli_close($conexaoBanco);
 
-    header('Location: /Prefeitura/WebObras/View/cadastroObras.php?protocolo='.$protocolo);
+    header('Location: /Prefeitura/WebObras/View/cadastroObras.php?protocolo=' . $protocolo);
 

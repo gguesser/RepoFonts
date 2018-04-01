@@ -34,11 +34,21 @@
                 }
                 else
                 {
+                    if(isset($_GET['protocolo'])) {
                     ?>
                     <script>
                         swal("Bom trabalho", "Obra alterada/incluída com sucesso", "success");
                     </script>
-        <?php
+                    <?php
+                    }
+                    else
+                    {
+                    ?>
+                    <script>
+                        swal("Erro", "Houve algum problema em incluir/alterar esta obra.", "error");
+                    </script>
+                    <?php
+                    }
                 }
             }
             unset($_SESSION['erroRequisicao']);
@@ -58,6 +68,12 @@
                 }
 
                 mysqli_close($conexaoBanco);
+            }
+            else
+            {
+
+                unset($_SESSION['ocorrenciaObra']);
+
             }
 
         ?>
@@ -84,7 +100,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="estatisticas.php">Relatórios</a>
+                                <a href="estatisticas.php">Estatísticas</a>
                             </li>
                             <li>
                                 <a href="index.php">Sair</a>
@@ -112,9 +128,9 @@
 
                         <div class="col-md-6">
                             <div class="pull-right">
-                                <label for="">Usuário: Guilherme</label>
+                                <label for="">Usuário: <?php print $_SESSION['nomeUsuario']?></label>
                                 <br>
-                                <label for="">Dia: 21/02/2018</label>
+                                <label for="">Dia: <?php print date('d/m/Y')?></label>
                             </div>
                         </div>
                     </header>
@@ -164,7 +180,7 @@
                                                     while($selecaoBairros = mysqli_fetch_assoc($selectBanco)) {
 
                                                         if(isset($resultadoSelecao)){
-                                                            if($selecaoBairros['Nome'] == $resultadoSelecao['Bairro']){
+                                                            if(utf8_decode($selecaoBairros['Nome']) == $resultadoSelecao['Bairro']){
                                                                 $value =  'selected';
                                                             }
                                                             else{
@@ -174,8 +190,6 @@
 
                                                         print '<option '. $value .'>' . utf8_decode($selecaoBairros['Nome']) . '</option>';
                                                     }
-
-                                                    mysqli_close($conexaoBanco);
 
                                                     ?>
                                                 </select>
@@ -240,6 +254,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-8">
+
                                                 <label for="">Fiscal</label>
                                                 <select name="cbbFiscal" class="form-contro componente_linha_3">
                                                     <?php
@@ -252,7 +267,7 @@
                                                     while($selecaoFiscais = mysqli_fetch_assoc($selectBanco)) {
 
                                                         if(isset($resultadoSelecao)){
-                                                            if(utf8_encode($selecaoFiscais['Nome']) == $resultadoSelecao['Fiscal']){
+                                                            if($selecaoFiscais['codFiscal'] == $resultadoSelecao['codFiscal']){
                                                                 $value =  'selected';
                                                             }
                                                             else{
@@ -308,6 +323,7 @@
                                                             print '</div>';
                                                         print '</div>';
                                                     print '</div>';
+                                                    print '<strong style="color: orangered">Salve a obra, para os novos materiais aparecerem no relatório!</strong>';
                                                 print '</div>';
 
                                             }

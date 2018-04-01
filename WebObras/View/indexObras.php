@@ -7,7 +7,7 @@
     use Header\Header;
     use Obra\Obra;
 
-    session_start();;
+    session_start();
 
     if(isset($_SESSION['validade'])){
 
@@ -41,7 +41,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="estatisticas.php">Relatórios</a>
+                                <a href="estatisticas.php">Estatísticas</a>
                             </li>
                             <li>
                                 <a href="index.php">Sair</a>

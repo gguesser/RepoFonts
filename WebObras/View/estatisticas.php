@@ -115,6 +115,24 @@
             $total_finalizada_foraprazo = $total_finalizada_foraprazo['total_finalizada_foraprazo'];
 
 
+    /**Quadro Pizza*/
+
+    $sql_fiscal = ' SELECT fis.Nome AS name, COUNT(obr.codProtocolo) AS y FROM prefguara_obras AS obr';
+    $sql_fiscal.= ' LEFT JOIN prefguara_Fiscais AS fis ON(obr.codFiscal = fis.codFiscal)';
+    $sql_fiscal.= ' WHERE fis.Operante = 1';
+    $sql_fiscal.= ' GROUP BY fis.codFiscal';
+
+    $select_fiscal = mysqli_query($conexao, $sql_fiscal);
+
+    while($total_fiscal = mysqli_fetch_assoc($select_fiscal))
+    {
+
+        $estatistica_fiscal[] = $total_fiscal;
+
+    }
+
+    $estatistica_fiscal = json_encode($estatistica_fiscal);
+
     ?>
 
     <body class="home">
@@ -141,7 +159,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="estatisticas.php">Relatórios</a>
+                                <a href="estatisticas.php">Estatísticas</a>
                             </li>
                             <li>
                                 <a href="index.php">Sair</a>
@@ -250,8 +268,15 @@
         });
 
 
+        /**Quadro Pizza*/
 
+        var estatistica_fiscal = <?php print $estatistica_fiscal;?>;
 
+        var fiscal = new Array();
+
+        for (i = 0; i < estatistica_fiscal.length; i++){
+            fiscal.push([estatistica_fiscal[i]['name'], parseFloat(estatistica_fiscal[i]['y'])]);
+        }
 
         var pieChart = Highcharts.chart('pieChart', {
             chart: {
@@ -261,7 +286,7 @@
                 type: 'pie'
             },
             title: {
-                text: 'Resumo Secretaria de Infraestrutura, 2017'
+                text: 'Alocação de obras por fiscal - 2018'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -280,29 +305,9 @@
                 }
             },
             series: [{
-                name: 'Brands',
+                name: 'Percentual',
                 colorByPoint: true,
-                data: [{
-                    name: 'Execução',
-                    y: 56.33
-                }, {
-                    name: '+ prioridade',
-                    y: 24.03,
-                    sliced: true,
-                    selected: true
-                }, {
-                    name: 'Urgentes',
-                    y: 10.38
-                }, {
-                    name: 'Auto',
-                    y: 4.77
-                }, {
-                    name: 'Normal',
-                    y: 0.91
-                }, {
-                    name: '- prioridade',
-                    y: 0.2
-                }]
+                data: fiscal
             }]
         });
 

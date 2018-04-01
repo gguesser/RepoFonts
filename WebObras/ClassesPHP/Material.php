@@ -45,7 +45,7 @@ class Material
         $selecaoMateriais = mysqli_query($conexaoBanco, $sql);
 
         while($resultadoSelecao = mysqli_fetch_assoc($selecaoMateriais)){
-            print '<option value="'.$resultadoSelecao['codMat'].'">'.$resultadoSelecao['NomeMat'].'</option>';
+            print '<option value="'.$resultadoSelecao['codMat'].'">'.$resultadoSelecao['NomeMat'] . ' - ' . $resultadoSelecao['UnidadeMedidaMat'].'</option>';
         }
 
         mysqli_close($conexaoBanco);
