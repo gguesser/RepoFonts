@@ -66,9 +66,7 @@ class Fiscal
 
                         print '</td>';
 
-                        print  '<td class="col-md-1">';
-
-                        print '<input class="btn btn-info pull-left" type="button" value="Editar">';
+                        print  '<td>';
 
                         print '</td>';
 

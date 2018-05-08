@@ -5,6 +5,7 @@
 
     $sql  = ' UPDATE prefguara_obras';
     $sql .= ' SET status = "' . $status . '"';
+    $sql .= ', dtConclusao = ' . ($status == 'Concluida' ? '"' . date('Y-m-d') . '"' : 'NULL') . '';
     $sql .= ' WHERE 1';
     $sql .= ' AND codProtocolo = ' . $protocolo;
 

@@ -249,7 +249,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label for="comment">Descrição adicional</label>
-                                                <textarea name="dscAdicional" id="dscAdicional" cols="30" rows="5" class="form-contro componente_linha_3"></textarea>
+                                                <textarea name="dscAdicional" id="dscAdicional" cols="30" rows="5" class="form-contro componente_linha_3"><?php print isset($resultadoSelecao) ? $resultadoSelecao['dscAdicional'] : NULL;?></textarea>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -323,7 +323,6 @@
                                                             print '</div>';
                                                         print '</div>';
                                                     print '</div>';
-                                                    print '<strong style="color: orangered">Salve a obra, para os novos materiais aparecerem no relatório!</strong>';
                                                 print '</div>';
 
                                             }
@@ -339,7 +338,7 @@
             </div>
         </div>
 
-<!--        MODAL DE ANDAMENTO DA OBRA-->
+        <!-- MODAL DE ANDAMENTO DA OBRA-->
         <div class="modal tipoModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -383,21 +382,34 @@
                                 </select>
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <?php
-                                    $aData = explode('-', $resultadoSelecao['dtRegistro']);
-                                    $dataFormatada = $aData[2] . '/' . $aData[1] . '/' .  $aData[0];
-                                ?>
                                 <label for="">Criação da obra</label>
-                                <input type="text" class="componente_linha_3" value="<?php print $dataFormatada?>" readonly="readonly">
+                                <input type="text" class="componente_linha_3" value="<?php print date('d/m/Y', strtotime($resultadoSelecao['dtRegistro']))?>" readonly="readonly">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="">Progresso de tempo</label>
+                                <label for="">Progresso de trabalho:</label>
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                        60%
+
+                                    <?php
+
+                                        $diaPercorrido = (strtotime(date('Y-m-d')) - strtotime($resultadoSelecao['dtRegistro'])) / 86400;
+                                        $diaFaltante   = (strtotime($resultadoSelecao['dtPrevisao']) - strtotime(date('Y-m-d'))) / 86400;
+
+                                        $percorrido = ($diaPercorrido >= 20 ? $diaPercorrido : 20);
+                                        $diaFaltante = ($diaFaltante >= 0 ? $diaFaltante : 0);
+                                        $faltante = 100 - $percorrido;
+
+                                    ?>
+
+                                    <div class="progress-bar progress-bar-success progress-bar-striped active" style="width: <?php print $percorrido;?>%">
+                                        <?php print $diaPercorrido . ($diaPercorrido > 1 ? ' dias percorridos': ' dia percorrido');?>
                                     </div>
+
+                                    <div class="progress-bar progress-bar-warning progress-bar-striped active" style="width: <?php print $faltante?>%">
+                                        <?php print $diaFaltante . ($diaFaltante > 1 ? ' dias restantes': ' dia restante');?>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -545,13 +557,16 @@
         }
     });
 
-    $(document).ready(function(){
+    $(document).ready(function()
+    {
+
         $('#txtProtocolo').mask('00000000000000000000000000000000');
         $('#txtNumero').mask('00000000000000000000000000000000');
         $("#dtPrevisao").mask('00/00/0000');
         $("#txtTelefoneDDD").mask('00');
         $("#txtTelefone").mask('00000-0000');
         $("#txtQuantidade").mask('000000000000000000000000000000');
+
     });
 
     function acaoModais(prAcao, prModal){

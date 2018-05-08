@@ -42,7 +42,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="estatisticas.php">Relatórios</a>
+                                <a href="estatisticas.php">Estatísticas</a>
                             </li>
                             <li>
                                 <a href="index.php">Sair</a>

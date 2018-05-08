@@ -48,8 +48,8 @@
                         </div>
                     </div>
                     <div class="col-xs-9 titulo">
-                        <h3 id="titulo" align="center">SECRETARIA DE INFRAESTRUTURA</h3>
-                        <h4 align="center">Registro de Obra</h4>
+                        <h4 id="titulo" align="center">SECRETARIA DE INFRAESTRUTURA</h4>
+                        <h5 align="center">Título Obra: <i>' . $resultadoSelecao['Titulo'] . '</i></h5>
                     </div>
                 </div>
             </div>
@@ -68,8 +68,8 @@
                         <br>
                     </div>
                     <div class="col-xs-6">
-                        <label for="" class="componente_linha_3"><b>E-mail:</b></label>
-                        '.$resultadoSelecao['Email'].'
+                        <label for="" class="componente_linha_3"><b>Telefone:</b></label>
+                        '.$resultadoSelecao['Telefone'].'
                         <br>
                         <label for="" class="componente_linha_3"><b>Registro:</b></label>
                         '.date('d/m/Y', strtotime($resultadoSelecao['dtRegistro'])).'
