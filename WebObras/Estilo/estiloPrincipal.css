@@ -48,15 +48,26 @@ label{
 	z-index: 1041 !important;
 }
 
+.acesso{
+	width: 3%;
+}
+
+table{
+	width: 100%;
+}
 
 /*NOVA REFORMULAÇÃO*/
 
 .quadro-principal{
-	margin: 2%;
+	margin: 1%;
 }
 
 .search input:focus{
 	border-bottom: 1px solid #BDC4D4;
 	line-height:22px;
 	transition: 0.1s all;
+}
+
+header{
+	margin-bottom: 1%;
 }
