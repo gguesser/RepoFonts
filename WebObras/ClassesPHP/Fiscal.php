@@ -52,7 +52,7 @@ class Fiscal
 
                     print '<tr>';
 
-                        print '<td>' . $fiscal['Nome'] . '</td>';
+                        print '<td>' . utf8_encode($fiscal['Nome']) . '</td>';
 
                         print '<td>' . $fiscal['AreaFiscalizar'] . '</td>';
 
