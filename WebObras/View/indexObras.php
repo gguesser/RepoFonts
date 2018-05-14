@@ -95,7 +95,7 @@
                                                         print '<th><b>Bairro</b></th>';
                                                         print '<th><b>Rua</b></th>';
                                                         print '<th><b>Morador</b></th>';
-                                                        print '<th><b>Abertura</b></th>';
+                                                        print '<th><b>Comunicado</b></th>';
                                                         print '<th><b>Fiscal</b></th>';
                                                         print '<th><b>Previsão</b></th>';
                                                     print '</tr>';
@@ -121,7 +121,7 @@
                                                             print $obrasSelecionadas['Nome'];
                                                         print '</td>';
                                                         print '<td>';
-                                                            print date('d/m/Y', strtotime($obrasSelecionadas['dtRegistro']));
+                                                            print date('d/m/Y', strtotime($obrasSelecionadas['dtComunicado']));
                                                         print '</td>';
                                                         print '<td>';
                                                             print $obrasSelecionadas['Fiscal'];
@@ -155,7 +155,7 @@
                                                         print '<td><b>Protocolo</b></td>';
                                                         print '<td><b>Titulo</b></td>';
                                                         print '<td><b>Bairro</b></td>';
-                                                        print '<td><b>Abertura</b></td>';
+                                                        print '<td><b>Comunicado</b></td>';
                                                         print '<td><b>Fiscal</b></td>';
                                                     print '</tr>';
                                                 print '</thead>';
@@ -173,7 +173,7 @@
                                                             print $obrasSelecionadas['Bairro'];
                                                         print '</td>';
                                                         print '<td>';
-                                                            print date('d/m/Y', strtotime($obrasSelecionadas['dtRegistro']));
+                                                            print date('d/m/Y', strtotime($obrasSelecionadas['dtComunicado']));
                                                         print '</td>';
                                                         print '<td>';
                                                             print $obrasSelecionadas['Fiscal'];

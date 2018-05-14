@@ -86,6 +86,9 @@
                         <label for="" class="componente_linha_3"><b>Rua:</b></label>
                         '.$resultadoSelecao['Rua'].'
                         <br>
+                        <label for="" class="componente_linha_3"><b>Complemento:</b></label>
+                        '.$resultadoSelecao['dscAdicional'].'
+                        <br>
                         <label for="" class="componente_linha_3"><b>Fiscal:</b></label>
                         '.$resultadoSelecao['Fiscal'].'
                     </div>
@@ -105,7 +108,7 @@
                     </div>
                 </fieldset>
                 <br>
-                <fieldset style="height: 25%">
+                <fieldset style="height: 23%">
                     <legend>MATERIAIS</legend>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         '.$materiais.'

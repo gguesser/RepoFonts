@@ -13,9 +13,11 @@
     $bairro          = $_POST['cbbBairro'];
     $telefoneMorador = $_POST['txtTelefoneDDD'] . $_POST['txtTelefone'];
     $emailMorador    = $_POST['txtEmail'];
+    $dataComunicado  = date('Y-m-d', strtotime(str_replace("/", "-", $_POST["dtComunicado"])));
     $problema        = $_POST['dscProblema'];
     $fiscal          = $_POST['cbbFiscal'];
     $dataPrevisao    = date('Y-m-d', strtotime(str_replace("/", "-", $_POST["dtPrevisao"])));
+    $responsavel     = $_POST['txtResponsavel'];
     $status          = $_POST['cbbStatus'];
     $dscAdicional    = $_POST['dscAdicional'];
     $dataConclusao   = 'NULL';
@@ -50,8 +52,8 @@
         $status = '1';
 
         $sql  = ' INSERT INTO prefguara_obras';
-        $sql .= ' (codProtocolo, Titulo, Nome, dtRegistro, Rua, Numero, Telefone, Email, dscProblema, codFiscal, dtPrevisao, Status, dscAdicional, dtConclusao, CodigoMateriais, Bairro, Url)';
-        $sql .= " VALUES ('" . $protocolo . "', '" . $tituloObra . "','" . $nomeMorador . "', '" . $dataRegistro . "', '" . $rua . "', '" . $numero . "', '" . $telefoneMorador . "', '" . $emailMorador . "', '" . $problema . "', '" . $fiscal . "', '" . $dataPrevisao . "', '" . $status . "', '" . $dscAdicional . "', " . $dataConclusao . ", '" . $codigoMateriais . "', '" . $bairro . "', '" . $url . "');";
+        $sql .= ' (codProtocolo, Titulo, Nome, dtRegistro, Rua, Numero, Telefone, Email, dscProblema, codFiscal, dtPrevisao, Status, dscAdicional, dtConclusao, CodigoMateriais, Bairro, Url, Responsavel, dtComunicado)';
+        $sql .= " VALUES ('" . $protocolo . "', '" . $tituloObra . "','" . $nomeMorador . "', '" . $dataRegistro . "', '" . $rua . "', '" . $numero . "', '" . $telefoneMorador . "', '" . $emailMorador . "', '" . $problema . "', '" . $fiscal . "', '" . $dataPrevisao . "', '" . $status . "', '" . $dscAdicional . "', " . $dataConclusao . ", '" . $codigoMateriais . "', '" . $bairro . "', '" . $url . "', '" . $responsavel . "', '" . $dataComunicado . "');";
 
         $acao = true;
 
@@ -60,7 +62,7 @@
         unset($_SESSION['ocorrenciaObra']);
 
         $sql  = ' UPDATE prefguara_obras';
-        $sql .= ' SET Titulo = "' . $tituloObra . '", Nome = "' . $nomeMorador . '", Rua = "' . $rua . '", Numero = ' . $numero . ', Telefone = "' . $telefoneMorador . '", Email = "' . $emailMorador . '", dscProblema = "' . $problema . '", codFiscal = "' . $fiscal . '", dtPrevisao = "' . $dataPrevisao . '", Status = "' . $status . '", dscAdicional = "' . $dscAdicional . '", Bairro = "' . $bairro . '", Url = "' . $url . '"';
+        $sql .= ' SET Titulo = "' . $tituloObra . '", Nome = "' . $nomeMorador . '", Rua = "' . $rua . '", Numero = ' . $numero . ', Telefone = "' . $telefoneMorador . '", Email = "' . $emailMorador . '", dscProblema = "' . $problema . '", codFiscal = "' . $fiscal . '", dtPrevisao = "' . $dataPrevisao . '", Status = "' . $status . '", dscAdicional = "' . $dscAdicional . '", Bairro = "' . $bairro . '", Url = "' . $url . '", Responsavel = "' . $responsavel . '", dtComunicado = "' . $dataComunicado . '"';
         $sql .= ' WHERE codProtocolo = ' . $protocolo;
 
     }

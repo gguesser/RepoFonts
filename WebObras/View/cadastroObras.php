@@ -159,14 +159,13 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label for="txtProtocolo">Protocolo</label>
-                                                <input type="text" class="componente_linha_1" name="txtProtocolo" id="txtProtocolo" value="<?php print isset($resultadoSelecao) ? $resultadoSelecao['codProtocolo'] : '';?>">
+                                                <input type="text" class="componente_linha_3" name="txtProtocolo" id="txtProtocolo" value="<?php print isset($resultadoSelecao) ? $resultadoSelecao['codProtocolo'] : '';?>">
                                             </div>
                                             <div class="col-md-8">
                                                 <label for="">Titulo</label>
-                                                <input type="text" class="componente_linha_1" name="txtTitulo" id="txtTitulo" value="<?php print isset($resultadoSelecao) ? $resultadoSelecao['Titulo'] : NULL;?>">
+                                                <input type="text" class="componente_linha_3" name="txtTitulo" id="txtTitulo" value="<?php print isset($resultadoSelecao) ? $resultadoSelecao['Titulo'] : NULL;?>">
                                             </div>
-                                        </div>
-                                        <div class="row">
+
                                             <div class="col-md-4">
                                                 <label for="">Bairro</label>
                                                 <select name="cbbBairro" class="form-contro componente_linha_3">
@@ -194,16 +193,12 @@
                                                     ?>
                                                 </select>
                                             </div>
-                                            <div class="col-md-4">
+                                            
+                                            <div class="col-md-8">
                                                 <label for="">Rua</label>
                                                 <input type="text" name="txtRua" id="txtRua" class="componente_linha_3" value="<?php print isset($resultadoSelecao) ? $resultadoSelecao['Rua'] : NULL;?>">
                                             </div>
-                                            <div class="col-md-4">
-                                                <label for="">Número</label>
-                                                <input type="text" name="txtNumero" id="txtNumero" class="componente_linha_3" value="<?php print isset($resultadoSelecao) ? $resultadoSelecao['Numero'] : NULL;?>">
-                                            </div>
-                                        </div>
-                                        <div class="row">
+
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="comment">Descrição do problema</label>
@@ -225,17 +220,30 @@
                                                 <label for="">Nome</label>
                                                 <input type="text" name="txtNome" id="txtNome" class="componente_linha_3" value="<?php print isset($resultadoSelecao) ? $resultadoSelecao['Nome'] : NULL;?>">
                                             </div>
+
+                                            <div class="col-md-4">
+                                                <label for="">Telefone</label>
+                                                <div class="telefone" style="width: 100%">
+                                                    <input type="text" name="txtTelefoneDDD" id="txtTelefoneDDD" style="width: 15%" value="<?php print isset($resultadoSelecao) ? substr($resultadoSelecao['Telefone'], 0, 2) : NULL;?>">
+                                                    <input type="text" name="txtTelefone" id="txtTelefone" style="width: 83%" value="<?php print isset($resultadoSelecao) ? substr($resultadoSelecao['Telefone'], 2, 10) : NULL;?>">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label for="">E-mail</label>
+                                                <input type="text" name="txtEmail" id="txtEmail" class="componente_linha_3" value="<?php print isset($resultadoSelecao) ? $resultadoSelecao['Email'] : NULL;?>">
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label for="">Número Casa</label>
+                                                <input type="text" name="txtNumero" id="txtNumero" class="componente_linha_3" value="<?php print isset($resultadoSelecao) ? $resultadoSelecao['Numero'] : NULL;?>">
+                                            </div>
+
                                              <div class="col-md-4">
-                                                 <label for="">Telefone</label>
-                                                 <div class="telefone" style="width: 100%">
-                                                     <input type="text" name="txtTelefoneDDD" id="txtTelefoneDDD" style="width: 15%" value="<?php print isset($resultadoSelecao) ? substr($resultadoSelecao['Telefone'], 0, 2) : NULL;?>">
-                                                     <input type="text" name="txtTelefone" id="txtTelefone" style="width: 83%" value="<?php print isset($resultadoSelecao) ? substr($resultadoSelecao['Telefone'], 2, 10) : NULL;?>">
-                                                 </div>
+                                                 <label for="">Data Comunicado</label>
+                                                 <input type="text" name="dtComunicado" id="dtComunicado" class="componente_linha_3" value="<?php print isset($resultadoSelecao) ? date('d/m/Y', strtotime($resultadoSelecao['dtComunicado'])) : NULL;?>">
                                              </div>
-                                             <div class="col-md-4">
-                                                 <label for="">E-mail</label>
-                                                 <input type="text" name="txtEmail" id="txtEmail" class="componente_linha_3" value="<?php print isset($resultadoSelecao) ? $resultadoSelecao['Email'] : NULL;?>">
-                                             </div>
+
                                          </div>
                                      </div>
                                 </div>
@@ -248,12 +256,12 @@
                                     <div class="rowEspacamento">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <label for="comment">Descrição adicional</label>
+                                                <label for="dscAdicional">Descrição adicional</label>
                                                 <textarea name="dscAdicional" id="dscAdicional" cols="30" rows="5" class="form-contro componente_linha_3"><?php print isset($resultadoSelecao) ? $resultadoSelecao['dscAdicional'] : NULL;?></textarea>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-8">
+                                            <div class="col-md-4">
 
                                                 <label for="">Fiscal</label>
                                                 <select name="cbbFiscal" class="form-contro componente_linha_3">
@@ -285,13 +293,15 @@
                                                 <input type="hidden" value="<?php print $resultadoSelecao['Status']?>" name="cbbStatus">
                                             </div>
                                             <div class="col-md-4">
-                                                <?php
-                                                    $aData = explode('-', $resultadoSelecao['dtPrevisao']);
-                                                $dataFormatada = $aData[2] . '/' . $aData[1] . '/' . $aData[0];
-                                                ?>
+
+                                                <label for="txtResponsavel">Responsável</label>
+                                                <input type="text" name="txtResponsavel" id="txtResponsavel" class="componente_linha_3" maxlength="255" value="<?php print isset($resultadoSelecao) ? $resultadoSelecao['Responsavel'] : NULL;?>">
+
+                                            </div>
+                                            <div class="col-md-4">
 
                                                 <label for="dtPrevisao">Data Previsão</label>
-                                                <input type="text" name="dtPrevisao" id="dtPrevisao" class="componente_linha_3" value="<?php print $resultadoSelecao['dtPrevisao'] ? $dataFormatada : NULL; ?>">
+                                                <input type="text" name="dtPrevisao" id="dtPrevisao" class="componente_linha_3" value="<?php print $resultadoSelecao['dtPrevisao'] ? date('d/m/Y', strtotime($resultadoSelecao['dtPrevisao'])) : NULL; ?>">
 
                                             </div>
                                         </div>
@@ -523,16 +533,18 @@
 
 <script>
 
-    $("#obraForm").validate({
+    $('#obraForm').validate({
         rules: {
             txtProtocolo: "required",
             txtTitulo: "required",
             txtRua: "required",
             txtNumero: "required",
+            dtComunicado: "required",
             dscProblema: "required",
             txtNome: "required",
             txtTelefone: "required",
             txtEmail: "required",
+            txtResponsavel: "required",
             dtPrevisao: "required"
         },
         messages: {
@@ -540,10 +552,12 @@
             txtTitulo: "Favor, dê um título á obra",
             txtRua: "Informe a rua",
             txtNumero: "Informe o nº da casa do morador",
+            dtComunicado: "Informe a data que foi indicado o problema",
             dscProblema: "Descreva o problema",
             txtNome: "Informe o morador",
             txtTelefone: "Informe o DDD + Telefone do morador",
             txtEmail: "informe o email do morador",
+            txtResponsavel: "Informe seu nome",
             dtPrevisao: "Informe uma data base para conclusão da obra"
         }
     });
@@ -563,6 +577,7 @@
         $('#txtProtocolo').mask('00000000000000000000000000000000');
         $('#txtNumero').mask('00000000000000000000000000000000');
         $("#dtPrevisao").mask('00/00/0000');
+        $("#dtComunicado").mask('00/00/0000');
         $("#txtTelefoneDDD").mask('00');
         $("#txtTelefone").mask('00000-0000');
         $("#txtQuantidade").mask('000000000000000000000000000000');

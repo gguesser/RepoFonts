@@ -23,14 +23,14 @@
             print '<link href="../Estilo/estiloPrincipal.css" rel="stylesheet" type="text/css">';
             print '<link href="../Estilo/menuGeral.css" rel="stylesheet" type="text/css">';
             print '<link href="../Estilo/textosCampos.css" rel="stylesheet" type="text/css">';
-            //Validate.js
-            //print '<script src=".././Componentes/validate.min.js"></script>';
-            print '<script src=".././Componentes/validate/dist/jquery.validate.js" type="text/javascript"></script>';
-            //Mask Juery
-            print '<script src=".././Componentes/MaskJquery/dist/jquery.mask.min.js"></script>';
             //Data Tables
             print '<link rel="stylesheet" type="text/css" href=".././Componentes/DataTables/datatables.min.css"/>';
             print '<script type="text/javascript" src=".././Componentes/DataTables/datatables.min.js"></script>';
+            //Mask Juery
+            print '<script src=".././Componentes/MaskJquery/dist/jquery.mask.min.js"></script>';
+            //Validate.js
+            //print '<script src=".././Componentes/validate.min.js"></script>';
+            print '<script src=".././Componentes/validate/dist/jquery.validate.js" type="text/javascript"></script>';
 
             print '<link href="../Estilo/relatorios.css" rel="stylesheet" type="text/css">';
             //Sweet Original
